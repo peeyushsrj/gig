@@ -18,12 +18,11 @@ func main() {
 		}
 		funcs := strings.Split(string(b), "\n")
 		for i := 0; i < len(funcs); i++ {
-			// fmt.Println(funcs[i])
-			b, err := exec.Command("go", "get", funcs[i]).Output()
+			cmd := exec.Command("go", "get", "-v", funcs[i])
+			err = cmd.Run()
 			if err != nil {
-				log.Fatal("error in sub", err)
+				log.Fatal("Invalid Package" + funcs[i])
 			}
-			fmt.Println(string(b))
 		}
 	} else {
 		fmt.Println("Insufficient Arguments")
